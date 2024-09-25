@@ -31,3 +31,10 @@ class Students(models.Model):
 
     class Meta:
         ordering = ["department", "registration_id"]
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            prev_student = Students.objects.get(pk=self.pk)
+            if prev_student.department != self.department:
+                self.course.clear()
+        super(Students, self).save(*args, **kwargs)

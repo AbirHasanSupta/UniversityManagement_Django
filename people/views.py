@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
 from university.models import Courses
 from .models import Teachers, Students
 from .forms import TeacherForm, StudentForm, StudentAddCourseForm

@@ -1,0 +1,25 @@
+<!-- templates/bookstore/order_list.html -->
+{% extends 'bookstore/base.html' %}
+
+{% block content %}
+<h2>Your Orders</h2>
+
+{% if orders %}
+<ul>
+    {% for order in orders %}
+    <li>
+        <strong>Order #{{ order.id }}:</strong>
+        Books:
+        <ul>
+            {% for book in order.book.all %}
+                <li>{{ book.title }} by {{ book.author }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>No orders placed yet.</p>
+{% endif %}
+
+{% endblock %}

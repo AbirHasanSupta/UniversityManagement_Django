@@ -1,6 +1,6 @@
 from django.db import models
 from university.models import age_validator, Departments, Courses
-
+from .form_validation import registration_validator
 
 class Teachers(models.Model):
     name = models.CharField(max_length=50)
@@ -21,8 +21,7 @@ class Teachers(models.Model):
 class Students(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    registration_id = models.IntegerField(unique=True, default=00000000)
-    age = models.IntegerField(validators=[age_validator])
+    registration_id = models.IntegerField(unique=True, validators=[registration_validator])
     date_of_birth = models.DateTimeField()
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)
     course = models.ManyToManyField(Courses, blank=True)

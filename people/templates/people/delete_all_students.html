@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Are you sure you want to delete all the departments?</h2>
+<h2>Are you sure you want to delete all the students?</h2>
 <form method="POST">
     {% csrf_token %}
     <button type="submit" id="delete-button">Yes, Delete</button>
-    <a href="{% url 'create_department' %}">Cancel</a>
+    <a href="{% url 'add_student' %}">Cancel</a>
 </form>
 {% endblock %}

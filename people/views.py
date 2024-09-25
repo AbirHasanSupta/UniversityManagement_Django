@@ -6,12 +6,39 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url="login")
 def add_student(request):
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("add_student")
+        else:
+            messages.error(request, form.errors)
     form = StudentForm()
     return render(request, "people/students.html", {"form": form})
+
+@login_required(login_url="login")
+def edit_student(request, pk):
+    student = Students.objects.get(pk=pk)
+    if request.method == "POST":
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect("add_student")
+    form = StudentForm(instance=student)
+    return render(request, "people/students.html", {"form": form})
+
+@login_required(login_url="login")
+def delete_student(request, pk):
+    student = Students.objects.get(pk=pk)
+    student.delete()
+    return redirect("add_student")
+
+@login_required(login_url="login")
+def delete_all_student(request):
+    if request.method == "POST":
+        students = Students.objects.all()
+        students.delete()
+        return redirect("add_student")
+    return render(request, "people/delete_all_students.html")

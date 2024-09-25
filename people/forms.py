@@ -9,5 +9,5 @@ class TeacherForm(forms.ModelForm):
 
 class StudentForm(forms.ModelForm):
     class Meta:
-        models = Students
+        model = Students
         fields = "__all__"

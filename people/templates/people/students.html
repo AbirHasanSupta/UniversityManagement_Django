@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Student List <span>[<a id="delete" href="{% url 'delete_all_departments' %}">Delete All</a>]</span></h3>
+    <ol>
+        {% for student in students %}
+            <li>{{ student.registration_id }}: {{ student.name }}({{ student.department.code }}) - <a href="{% url 'edit_department' department.id %}">Edit</a> - <a href="{% url 'delete_department' department.id %}" id="delete">Delete</a></li>
+        {% endfor %}
+
+    </ol>
+    
+<h2>Add/Edit Student</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+    
+    
+{% endblock %}

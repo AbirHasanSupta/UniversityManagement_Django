@@ -1,5 +1,6 @@
 from django import forms
 from .models import Teachers, Students
+from university.models import Courses
 from .form_validation import registration_validator
 
 class TeacherForm(forms.ModelForm):
@@ -10,7 +11,7 @@ class TeacherForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Students
-        fields = "__all__"
+        exclude = ["course"]
 
         widgets = {
             "date_of_birth" : forms.DateInput(attrs={
@@ -20,7 +21,19 @@ class StudentForm(forms.ModelForm):
                 "maxlength": 8,
             })
         }
-    def cleaned_registration_id(self):
+
+    def clean_registration_id(self):
         registration_id = self.cleaned_data["registration_id"]
         registration_validator(registration_id)
         return registration_id
+
+class StudentAddCourseForm(forms.ModelForm):
+    class Meta:
+        model = Students
+        fields = ["course"]
+
+    def __init__(self, *args, **kwargs):
+        student = kwargs.get("instance")
+        super(StudentAddCourseForm, self).__init__(*args, **kwargs)
+        if student:
+            self.fields["course"].queryset = Courses.objects.filter(department=student.department)

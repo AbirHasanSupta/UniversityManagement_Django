@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h2>{{ student.name }}'s Courses</h2>
+    <ol>
+        {% for course in student.course.all %}
+            <li>{{ course.name }}({{ course.code }})</li>
+        {% endfor %}
+    </ol>
+
+<br>
+
+<h2>Add Course</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+</form>
+
+{% endblock %}

@@ -4,7 +4,9 @@
     <h3>Student List <span>[<a id="delete" href="{% url 'delete_all_students' %}">Delete All</a>]</span></h3>
     <ul>
         {% for student in students %}
-            <li>{{ student.registration_id }}: {{ student.name }}({{ student.department.code }}) - <a href="{% url 'edit_student' student.id %}">Edit</a> - <a href="{% url 'delete_student' student.id %}" id="delete">Delete</a></li>
+            <li>{{ student.registration_id }}: {{ student.name }}({{ student.department.code }}) - <a href="{% url 'edit_student' student.id %}">Edit</a> - <a href="{% url 'delete_student' student.id %}" id="delete">Delete</a>
+            <br>
+            <a href="{% url 'add_course' student.id %}">Add Courses/View Courses</a></li>
         {% endfor %}
 
     </ul>

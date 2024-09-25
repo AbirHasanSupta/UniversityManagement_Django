@@ -1,4 +1,4 @@
-from .models import Departments, Courses, Students, Teachers
+from .models import Departments, Courses
 from django import forms
 
 
@@ -13,12 +13,3 @@ class CourseForm(forms.ModelForm):
         model = Courses
         fields = "__all__"
 
-class TeacherForm(forms.ModelForm):
-    class Meta:
-        model = Teachers
-        fields = "__all__"
-
-class StudentForm(forms.ModelForm):
-    class Meta:
-        models = Students
-        fields = "__all__"

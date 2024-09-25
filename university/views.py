@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Students, Teachers, Departments, Courses
-from .forms import StudentForm, TeacherForm, DepartmentForm, CourseForm
+from .models import Departments, Courses
+from .forms import DepartmentForm, CourseForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required

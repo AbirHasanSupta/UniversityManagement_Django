@@ -19,7 +19,7 @@ class Departments(models.Model):
 
 class Courses(models.Model):
     name = models.CharField(max_length=50)
-    code = models.CharField(max_length=5)
+    code = models.CharField(max_length=10)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)
 
     def __str__(self):

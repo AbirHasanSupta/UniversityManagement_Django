@@ -80,4 +80,37 @@ def delete_all_department(request):
         return redirect("create_department")
     return render(request, "delete_all_departments.html")
 
+@login_required(login_url="login")
+def create_course(request):
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("create_course")
+    form = CourseForm()
+    return render(request, "courses.html", {"form": form})
 
+@login_required(login_url="login")
+def edit_course(request, pk):
+    courses = Courses.objects.get(pk=pk)
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=courses)
+        if form.is_valid():
+            form.save()
+            return redirect("create_course")
+    form = CourseForm(instance=courses)
+    return render(request, "courses.html", {"form": form})
+
+@login_required(login_url="login")
+def delete_course(request, pk):
+    course = Courses.objects.get(pk=pk)
+    course.delete()
+    return redirect("create_course")
+
+@login_required(login_url="login")
+def delete_all_course(request):
+    if request.method == "POST":
+        courses = Courses.objects.all()
+        courses.delete()
+        return redirect("create_course")
+    return render(request, "delete_all_courses.html")

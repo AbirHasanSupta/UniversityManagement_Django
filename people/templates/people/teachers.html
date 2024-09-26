@@ -4,7 +4,7 @@
     <h3>Teacher List <span>[<a id="delete" href="{% url 'delete_all_teachers' %}">Delete All</a>]</span></h3>
     <ol>
         {% for teacher in teachers %}
-            <li>{{ teacher.name }}({{ teacher.department.code }}) -- {{ teacher.designation }} - <a href="{% url 'edit_teacher' teacher.id %}">Edit</a> - <a href="{% url 'delete_teacher' teacher.id %}" id="delete">Delete</a>
+            <li>{{ teacher.name }}({{ teacher.department.code }}) -- {{ teacher.get_designation_display }} - <a href="{% url 'edit_teacher' teacher.id %}">Edit</a> - <a href="{% url 'delete_teacher' teacher.id %}" id="delete">Delete</a>
                 <br>
                 <a href="{% url 'add_teacher_course' teacher.id %}">View Courses</a>
             </li>

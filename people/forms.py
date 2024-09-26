@@ -4,6 +4,14 @@ from university.models import Courses
 from .form_validation import registration_validator
 
 class TeacherForm(forms.ModelForm):
+    DESIGNATION_CHOICES = [
+        ("teaching_assistant", "Teaching Assistant"),
+        ("lecturer", "Lecturer"),
+        ("assistant_professor", "Assistant Professor"),
+        ("associate_professor", "Associate Professor"),
+        ("professor", "Professor")
+    ]
+    designation = forms.ChoiceField(choices=DESIGNATION_CHOICES)
     class Meta:
         model = Teachers
         exclude = ["course", "password"]

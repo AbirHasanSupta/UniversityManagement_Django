@@ -6,7 +6,13 @@ class Teachers(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=500, default="abcd")
-    designation = models.CharField(max_length=50, default="Lecturer")
+    designation = models.CharField(max_length=50,choices=[
+        ('teaching_assistant', 'Teaching Assistant'),
+        ('lecturer', 'Lecturer'),
+        ('assistant_professor', 'Assistant Professor'),
+        ('associate_professor', 'Associate Professor'),
+        ('professor', 'Professor'),
+    ], default="lecturer")
     age = models.IntegerField(validators=[age_validator])
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)

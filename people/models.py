@@ -16,7 +16,7 @@ class Teachers(models.Model):
     age = models.IntegerField(validators=[age_validator])
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)
-    course = models.ManyToManyField(Courses, blank=True)
+    course = models.ManyToManyField(Courses, blank=True, related_name="teachers")
 
     def __str__(self):
         return self.name

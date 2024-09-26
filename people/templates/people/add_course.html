@@ -5,7 +5,12 @@
     <h2>{{ student.name }}'s Courses</h2>
     <ol>
         {% for course in student.course.all %}
-            <li>{{ course.name }}({{ course.code }})</li>
+            <li>{{ course.name }}({{ course.code }}) -
+                {% for teacher in course.teachers.all %}
+                    <b>{{ teacher.name }}</b>
+                {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
         {% endfor %}
     </ol>
 

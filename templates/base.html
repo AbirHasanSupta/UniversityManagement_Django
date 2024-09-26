@@ -25,7 +25,9 @@
         </nav>
     </header>
     <main>
+    <div class="block-content">
         {% block content %}{% endblock %}
+    </div>
         {% if messages %}
             {% for message in messages %}
                 <p>{{ message }}</p>

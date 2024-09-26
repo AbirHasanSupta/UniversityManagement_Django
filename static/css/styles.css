@@ -62,3 +62,14 @@ a {
 #delete-button{
     background-color: #d85252;
 }
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.block-content{
+    height: 60vh;
+}

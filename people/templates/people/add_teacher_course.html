@@ -5,7 +5,7 @@
     <h2>{{ teacher.name }}'s Courses</h2>
     <ol>
         {% for course in teacher.course.all %}
-            <li>{{ course.name }}({{ course.code }})</li>
+            <li>{{ course.name }}({{ course.code }}) -- <a href="{% url 'student_list' course.id %}">Students</a></li>
         {% endfor %}
     </ol>
 

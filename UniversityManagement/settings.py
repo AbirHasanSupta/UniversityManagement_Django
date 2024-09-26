@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "university.middleware.LoginRequiredMiddleware"
 ]
 
 ROOT_URLCONF = 'UniversityManagement.urls'

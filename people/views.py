@@ -1,16 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from university.models import Courses
 from .models import Teachers, Students
 from .forms import TeacherForm, StudentForm, StudentAddCourseForm, TeacherAddCourseForm
 from django.contrib import messages
-from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .password_generator import random_password_generator
 
 
-@login_required(login_url="login")
 def add_student(request):
     if request.method == "POST":
         form = StudentForm(request.POST)
@@ -27,7 +23,6 @@ def add_student(request):
     form = StudentForm()
     return render(request, "people/students.html", {"form": form})
 
-@login_required(login_url="login")
 def edit_student(request, pk):
     student = Students.objects.get(pk=pk)
     if request.method == "POST":
@@ -37,7 +32,7 @@ def edit_student(request, pk):
             return redirect("add_student")
     form = StudentForm(instance=student)
     return render(request, "people/students.html", {"form": form})
-@login_required(login_url="login")
+
 def add_course(request, pk):
     student = Students.objects.get(pk=pk)
     if request.method == "POST":
@@ -48,13 +43,11 @@ def add_course(request, pk):
     return render(request, "people/add_course.html", {"form": form, "student": student})
 
 
-@login_required(login_url="login")
 def delete_student(request, pk):
     student = Students.objects.get(pk=pk)
     student.delete()
     return redirect("add_student")
 
-@login_required(login_url="login")
 def delete_all_student(request):
     if request.method == "POST":
         students = Students.objects.all()
@@ -63,7 +56,6 @@ def delete_all_student(request):
     return render(request, "people/delete_all_students.html")
 
 
-@login_required(login_url="login")
 def add_teacher(request):
     if request.method == "POST":
         form = TeacherForm(request.POST)
@@ -80,7 +72,7 @@ def add_teacher(request):
     form = TeacherForm()
     return render(request, "people/teachers.html", {"form": form})
 
-@login_required(login_url="login")
+
 def edit_teacher(request, pk):
     teacher = Teachers.objects.get(pk=pk)
     if request.method == "POST":
@@ -92,7 +84,6 @@ def edit_teacher(request, pk):
     return render(request, "people/teachers.html", {"form": form})
 
 
-@login_required(login_url="login")
 def add_teacher_course(request, pk):
     teacher = Teachers.objects.get(pk=pk)
     if request.method == "POST":
@@ -103,16 +94,20 @@ def add_teacher_course(request, pk):
     return render(request, "people/add_teacher_course.html", {"form": form, "teacher": teacher})
 
 
-@login_required(login_url="login")
 def delete_teacher(request, pk):
     teacher = Teachers.objects.get(pk=pk)
     teacher.delete()
     return redirect("add_teacher")
 
-@login_required(login_url="login")
 def delete_all_teacher(request):
     if request.method == "POST":
         teachers = Teachers.objects.all()
         teachers.delete()
         return redirect("add_teacher")
     return render(request, "people/delete_all_teachers.html")
+
+
+def student_list(request, pk):
+    course = Courses.objects.get(pk=pk)
+    course_students = Students.objects.filter(course = course)
+    return render(request, "people/course_student_list.html", {"course_students" : course_students, "now_course": course})

@@ -4,9 +4,8 @@ from .models import Departments, Courses
 from .forms import DepartmentForm, CourseForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
 
-@login_required(login_url="login")
+
 def dashboard(request):
     return render(request, "dashboard.html")
 
@@ -39,12 +38,12 @@ def register_user(request):
     form = UserCreationForm()
     return render(request, "register.html", {"form" : form})
 
-@login_required(login_url="login")
+
 def logout_user(request):
     logout(request)
     return redirect("login")
 
-@login_required(login_url="login")
+
 def create_department(request):
     if request.method == "POST":
         form = DepartmentForm(request.POST)
@@ -54,7 +53,7 @@ def create_department(request):
     form = DepartmentForm()
     return render(request, "departments.html", {"form": form})
 
-@login_required(login_url="login")
+
 def edit_department(request, pk):
     department = Departments.objects.get(pk=pk)
     if request.method == "POST":
@@ -65,13 +64,13 @@ def edit_department(request, pk):
     form = DepartmentForm(instance=department)
     return render(request, "departments.html", {"form" : form})
 
-@login_required(login_url="login")
+
 def delete_department(request, pk):
     department = Departments.objects.get(pk=pk)
     department.delete()
     return redirect("create_department")
 
-@login_required(login_url="login")
+
 def delete_all_department(request):
     if request.method == "POST":
         departments = Departments.objects.all()
@@ -79,7 +78,7 @@ def delete_all_department(request):
         return redirect("create_department")
     return render(request, "delete_all_departments.html")
 
-@login_required(login_url="login")
+
 def create_course(request):
     if request.method == "POST":
         form = CourseForm(request.POST)
@@ -89,7 +88,7 @@ def create_course(request):
     form = CourseForm()
     return render(request, "courses.html", {"form": form})
 
-@login_required(login_url="login")
+
 def edit_course(request, pk):
     courses = Courses.objects.get(pk=pk)
     if request.method == "POST":
@@ -100,13 +99,13 @@ def edit_course(request, pk):
     form = CourseForm(instance=courses)
     return render(request, "courses.html", {"form": form})
 
-@login_required(login_url="login")
+
 def delete_course(request, pk):
     course = Courses.objects.get(pk=pk)
     course.delete()
     return redirect("create_course")
 
-@login_required(login_url="login")
+
 def delete_all_course(request):
     if request.method == "POST":
         courses = Courses.objects.all()

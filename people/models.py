@@ -5,6 +5,7 @@ from .form_validation import registration_validator
 class Teachers(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=500, default="abcd")
     designation = models.CharField(max_length=50, default="Lecturer")
     age = models.IntegerField(validators=[age_validator])
     salary = models.DecimalField(max_digits=10, decimal_places=2)
@@ -15,7 +16,14 @@ class Teachers(models.Model):
         return self.name
 
     class Meta:
-        ordering = ["department", "name"]
+        ordering = ["department", "designation", "name"]
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            prev_teacher = Teachers.objects.get(pk=self.pk)
+            if prev_teacher.department != self.department:
+                self.course.clear()
+        super(Teachers, self).save(*args, **kwargs)
 
 
 class Students(models.Model):

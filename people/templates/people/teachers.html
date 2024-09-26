@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Department List <span>[<a id="delete" href="{% url 'delete_all_departments' %}">Delete All</a>]</span></h3>
+    <h3>Teacher List <span>[<a id="delete" href="{% url 'delete_all_teachers' %}">Delete All</a>]</span></h3>
     <ol>
-        {% for department in departments %}
-            <li>{{ department.name }}({{ department.code }}) - <a href="{% url 'edit_department' department.id %}">Edit</a> - <a href="{% url 'delete_department' department.id %}" id="delete">Delete</a></li>
+        {% for teacher in teachers %}
+            <li>{{ teacher.name }}({{ teacher.department.code }}) -- {{ teacher.designation }} - <a href="{% url 'edit_teacher' teacher.id %}">Edit</a> - <a href="{% url 'delete_teacher' teacher.id %}" id="delete">Delete</a>
+                <br>
+                <a href="{% url 'add_teacher_course' teacher.id %}">View Courses</a>
+            </li>
         {% endfor %}
+        <br>
+
 
     </ol>
     
-<h2>Create/Update Department</h2>
+<h2>Add/Edit Teachers</h2>
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}

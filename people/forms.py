@@ -6,7 +6,7 @@ from .form_validation import registration_validator
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teachers
-        fields = "__all__"
+        exclude = ["course", "password"]
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -37,3 +37,16 @@ class StudentAddCourseForm(forms.ModelForm):
         super(StudentAddCourseForm, self).__init__(*args, **kwargs)
         if student:
             self.fields["course"].queryset = Courses.objects.filter(department=student.department)
+
+
+class TeacherAddCourseForm(forms.ModelForm):
+    class Meta:
+        model = Teachers
+        fields = ["course"]
+
+    def __init__(self, *args, **kwargs):
+        teacher = kwargs.get("instance")
+        super(TeacherAddCourseForm, self).__init__(*args, **kwargs)
+        if teacher:
+            self.fields["course"].queryset = Courses.objects.filter(department=teacher.department)
+

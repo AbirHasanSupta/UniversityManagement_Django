@@ -11,7 +11,7 @@ class TeacherForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Students
-        exclude = ["course"]
+        exclude = ["course", "password"]
 
         widgets = {
             "date_of_birth" : forms.DateInput(attrs={

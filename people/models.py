@@ -25,6 +25,7 @@ class Students(models.Model):
     date_of_birth = models.DateTimeField()
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)
     course = models.ManyToManyField(Courses, blank=True)
+    password = models.CharField(max_length=500, default="1234")
 
     def __str__(self):
         return self.name

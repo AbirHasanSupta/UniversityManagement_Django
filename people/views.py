@@ -6,13 +6,21 @@ from .forms import TeacherForm, StudentForm, StudentAddCourseForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from .password_generator import random_password_generator
+
 
 @login_required(login_url="login")
 def add_student(request):
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():
-            form.save()
+            student = form.save(commit=False)
+            raw_password = random_password_generator()
+            hashed_password = make_password(raw_password)
+            student.password = hashed_password
+            student.raw_password = raw_password
+            student.save()
             return redirect("add_student")
         else:
             messages.error(request, form.errors)
@@ -29,7 +37,7 @@ def edit_student(request, pk):
             return redirect("add_student")
     form = StudentForm(instance=student)
     return render(request, "people/students.html", {"form": form})
-
+@login_required(login_url="login")
 def add_course(request, pk):
     student = Students.objects.get(pk=pk)
     if request.method == "POST":

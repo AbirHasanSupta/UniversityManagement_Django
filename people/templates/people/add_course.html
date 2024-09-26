@@ -8,7 +8,6 @@
             <li>{{ course.name }}({{ course.code }}) -
                 {% for teacher in course.teachers.all %}
                     <b>{{ teacher.name }}</b>
-                {% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </li>
         {% endfor %}

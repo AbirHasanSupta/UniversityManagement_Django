@@ -15,8 +15,8 @@
                 <a href="{% url 'dashboard' %}">Dashboard</a>
                 <a href="{% url 'create_department' %}">Departments</a>
                 <a href="{% url 'create_course' %}">Courses</a>
-                <a href="{% url 'add_student' %}">Students</a>
                 <a href="{% url 'add_teacher' %}">Teachers</a>
+                <a href="{% url 'add_student' %}">Students</a>
                 <a href="{% url 'logout' %}">Logout</a>
             {% else %}
                 <a href="{% url 'register' %}">Sign Up</a>
@@ -25,17 +25,17 @@
         </nav>
     </header>
     <main>
-    <div class="block-content">
-        {% block content %}{% endblock %}
-    </div>
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {%  endif %}
+        <div class="block-content">
+            {% block content %}{% endblock %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {%  endif %}
+        </div>
     </main>
     <footer>
-        <p>&copy; 2024 University Management System</p>
+        <p>&copy; {{ current_year }} University Management System</p>
     </footer>
     
 </body>

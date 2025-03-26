@@ -1,0 +1,7 @@
+Django==4.2.2
+djangorestframework==3.14.0
+celery==5.2.7
+django-celery-beat==2.3.0
+django-environ==0.8.1
+pytz==2023.3
+psycopg2-binary==2.9.6
